@@ -67,7 +67,6 @@ services:
         - IOTA_REGISTRY_TYPE=mongodb
         - IOTA_LOG_LEVEL=DEBUG
         - IOTA_TIMESTAMP=true
-        - IOTA_CB_NGSI_VERSION=v2
         - IOTA_AUTOCAST=true
         - IOTA_MONGO_HOST=mongo-db
         - IOTA_MONGO_PORT=27017
@@ -76,6 +75,9 @@ services:
         - IOTA_MQTT_HOST=mosquitto
         - IOTA_MQTT_PORT=1883
         - IOTA_HTTP_PORT=7896
+        - IOTA_CB_NGSI_VERSION=ld
+        - IOTA_JSON_LD_CONTEXT=http://context/ngsi-context.jsonld
+        - IOTA_FALLBACK_TENANT=openiot
   
   quantum-leap:
     image: smartsdk/quantumleap
