@@ -127,6 +127,8 @@ services:
         - CRATE_HOST=crate-db
         - REDIS_HOST=redis-db
         - REDIS_PORT="6379"
+        - CRATE_PORT="4200"
+        - CRATE_DB_USER="crate"
     healthcheck:
       test: curl --fail -s http://quantumleap:8668/version || exit 1
 
@@ -163,14 +165,14 @@ services:
       interval: 10s
 
   crate-db:
-    image: crate:4.1.4
+    image: crate:4.8.4
     hostname: crate-db
     container_name: db-crate
     ports:
         - "4200:4200"
         - "4300:4300"
     command: 
-      crate -Cauth.host_based.enabled=false  -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*"     
+      crate #-Cauth.host_based.enabled=false  -Ccluster.name=democluster -Chttp.cors.enabled=true -Chttp.cors.allow-origin="*" -Cdiscovery.type=single-node    
     environment:
       - CRATE_HEAP_SIZE=2g
     volumes:
