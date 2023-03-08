@@ -1,5 +1,0 @@
-curl -X GET \
-  http://192.168.1.100:1026/ngsi-ld/v1/entities/urn:ngsi-ld:ParkingSpot:Mobility_Hub:2\
-  --header 'NGSILD-Tenant: openiot' \
-  --header 'Content-Type: application/json' \
-  --header 'Link: <http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' | python -mjson.tool \
