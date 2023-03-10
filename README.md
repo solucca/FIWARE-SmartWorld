@@ -6,14 +6,17 @@
 [![JSON LD](https://img.shields.io/badge/JSON--LD-1.1-f06f38.svg)](https://w3c.github.io/json-ld-syntax/)
 
 ---
-## General setup
-<details>
+## Smartworld by FIWARE
 
-<summary> Click to expand </summary>
+FIWARE's Smartworld is a Model of a Smart City using bricks, sensors, electronics and the FIWARE system. 
+
+The Model was created to show the endless possibilities of the FIWARE technology in multiple fields, like digital governance, energy management, city management, mobility and construction.
+
+---
+
+## General setup
 
 For the general setup of the digital twin of the SmartWorld by FIWARE (lego-demonstrator) have a look at the ```DigitalTwinFlowchart.pdf```. The Base of the hole digital twin is the lego-demonstrator itself with all its microcontrollers, actuators and sensors. The information of the sensors is transferred from the microcontrollers via WiFi to the ```mosquitto MQTT-Broker```. From there the ```IoT-Agent``` is reading this information, translating it into ```NGSI-LD``` and sending it to the ```Orion-LD context broker```. The current data of the lego-demonstrator is available in real time and standartized in the context broker. The Digital Twin representation in the website is getting its information from the context broker. When you want to see the data over time you need to store it somewhere else. For this task the context broker sends the new data to ```Quantumleap```, which stores the data in a ```Crate-DB``` database. The dashboard-tool ```Grafana``` gets the information over time out of the database and show it in dashboards.
-
-</details>
 
 ---
 

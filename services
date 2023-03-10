@@ -80,6 +80,14 @@ waitForMongo () {
 	done
 }
 
+waitForGenerator () {
+    echo -e "\n⏳ Waiting for \033[1mFakeDataGenerator\033[0m to be available\n"
+    while ! [`docker inspect --format='{{.State.Running}}' smartworld-fakegenerator` == "true"]
+    do
+        sleep 1
+    done
+}
+
 waitForIoTAgent () {
 	echo -e "\n⏳ Waiting for \033[1;36mIoT-Agent\033[0m to be available\n"
 	while [ `docker run --network fiware_default --rm curlimages/curl -s -o /dev/null -w %{http_code} 'http://iot-agent:4041/version'` -eq 000 ]
@@ -163,9 +171,9 @@ addDatabaseIndex () {
 command="$1"
 case "${command}" in
 	"help")
-        echo "usage: services [create|orion|scorpio|stellio|stop]"
+        echo "usage: services [create|setup|start|stop]"
         ;;
-	 "orion")
+	 "start")
 		export $(cat .env | grep "#" -v)
 		stoppingContainers
 		waitForCoreContext
@@ -187,10 +195,9 @@ case "${command}" in
 		export $(cat .env | grep "#" -v)
 		stoppingContainers
 		;;
-	"start")
-		export $(cat .env | grep "#" -v)
-		./services orion
-		;;
+    "simulate")
+        
+        ;;
 	"create")
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"

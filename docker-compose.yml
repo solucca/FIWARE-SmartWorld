@@ -1,5 +1,18 @@
 version: "3.5"
 services:
+  fakegenerator:
+    labels:
+      org.fiware: 'SmartWorld'
+    build: 
+      context: ./fakegenerator
+      dockerfile: Dockerfile
+    hostname: fakegenerator
+    container_name: smartworld-fakegenerator
+    depends_on:
+      - mosquitto
+    networks:
+      - default
+
   # Orion is the context broker
   orion:
     labels:
