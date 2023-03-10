@@ -1,18 +1,5 @@
 version: "3.5"
 services:
-  fakegenerator:
-    labels:
-      org.fiware: 'SmartWorld'
-    build: 
-      context: ./fakegenerator
-      dockerfile: Dockerfile
-    hostname: fakegenerator
-    container_name: smartworld-fakegenerator
-    depends_on:
-      - mosquitto
-    networks:
-      - default
-
   # Orion is the context broker
   orion:
     labels:
@@ -36,26 +23,6 @@ services:
       interval: 5s
 
 
-  mongo-db:
-    labels:
-      org.fiware: 'SmartWorld'
-    image: mongo:${MONGO_DB_VERSION}
-    hostname: mongo-db
-    container_name: db-mongo
-    expose:
-      - "${MONGO_DB_PORT}"
-    ports:
-      - "${MONGO_DB_PORT}:${MONGO_DB_PORT}" # localhost:27017
-    networks:
-      - default
-    volumes:
-      - mongo-db:/data/db
-      - mongo-config:/data/configdb
-    healthcheck:
-      test: [ "CMD", "mongo", "--quiet", "127.0.0.1/test", "--eval", "'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'"]
-      interval: 5s
-
-
   mosquitto:
     labels:
       org.fiware: 'SmartWorld'
@@ -70,8 +37,8 @@ services:
       - "${MOSQUITTO_PORT}:${MOSQUITTO_PORT}" # localhost:1883
       - "9001:9001"
     volumes:
-        - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-        - ./mosquitto/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+        - ../mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+        - ../mosquitto/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
     networks:
       - default
 
@@ -127,7 +94,6 @@ services:
       interval: 5s
 
 
-
   quantumleap:
     labels:
       org.fiware: 'SmartWorld'
@@ -160,11 +126,12 @@ services:
     ports:
       - "3004:80"
     volumes:
-      - data-models:/usr/local/apache2/htdocs/
+      - ../data-models:/usr/local/apache2/htdocs/
     networks:
       - default
     healthcheck:
       test: (wget --server-response --spider --quiet  http://ld-context/ngsi-context.jsonld 2>&1 | awk 'NR==1{print $$2}'|  grep -q -e "200") || exit 1
+
 
   redis-db:
     labels:
@@ -181,6 +148,7 @@ services:
     healthcheck:
       test: ["CMD", "redis-cli","ping"]
       interval: 10s
+
 
   crate-db:
     labels:
@@ -199,18 +167,19 @@ services:
     volumes:
       - crate-db:/data
 
-  # Other services
+
   grafana:
     labels:
       org.fiware: 'SmartWorld'
     image: grafana/grafana:6.1.6
     container_name: grafana
+    restart: always
     depends_on:
       - crate-db
     ports:
       - "3003:3000"
-    environment:
-      - GF_INSTALL_PLUGINS=https://github.com/orchestracities/grafana-map-plugin/archive/master.zip;grafana-map-plugin,grafana-clock-panel,grafana-worldmap-panel
+    #environment:
+    #  - GF_INSTALL_PLUGINS=https://github.com/orchestracities/grafana-map-plugin/archive/master.zip;grafana-map-plugin,grafana-clock-panel,grafana-worldmap-panel
     volumes:
       - grafana:/var/lib/grafana
 
