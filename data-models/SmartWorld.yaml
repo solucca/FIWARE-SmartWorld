@@ -7,7 +7,11 @@ components:
     #Parking Spot for Mobility_Hub and Harbour
     ParkingSpot: 
       $ref: "https://smart-data-models.github.io/dataModel.Parking/ParkingSpot/model.yaml#/ParkingSpot"
-
+    
+    #Electric Vehicle Charging Spot
+    EVChargingStation:
+      $ref: "https://smart-data-models.github.io/dataModel.Transportation/EVChargingStation/model.yaml#/EVChargingStation"
+    
     #Dokk1 CarPark
     OffStreetParking: 
       $ref: "https://smart-data-models.github.io/dataModel.Parking/OffStreetParking/model.yaml#/OffStreetParking"

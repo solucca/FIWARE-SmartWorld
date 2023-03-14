@@ -116,11 +116,11 @@ stoppingContainers () {
 		echo "Stopping containers"
 		docker rm -f $CONTAINERS || true
 	fi
-	VOLUMES=$(docker volume ls -qf dangling=true) 
-	if [[ -n $VOLUMES ]]; then 
-		echo "Removing old volumes"
-		docker volume rm $VOLUMES || true
-	fi
+	#VOLUMES=$(docker volume ls -qf dangling=true) 
+	#if [[ -n $VOLUMES ]]; then 
+	#	echo "Removing old volumes"
+    #	docker volume rm $VOLUMES || true
+	#fi
 	NETWORKS=$(docker network ls  --filter "label=org.fiware=SmartWorld" -q) 
 	if [[ -n $NETWORKS ]]; then 
 		echo "Removing SmartWorld networks"
@@ -196,6 +196,8 @@ case "${command}" in
 		displayServices
         mongoDump
 		echo -e "Done! Now the contex broker should be active!"
+        echo -e "\e]8;;http://localhost:3003\a\033[1mGrafana\033[0m\e]8;;\a"
+        echo -e "\e]8;;http://localhost:4200\a\033[1mCrate-DB\033[0m\e]8;;\a"
 		;;
 	"start")
 		export $(cat .env | grep "#" -v)
@@ -211,6 +213,8 @@ case "${command}" in
 		waitForOrion
         displayServices
 		echo -e "Done! Now the contex broker should be active!"
+        echo -e "\e]8;;http://localhost:3003\a\033[1mGrafana\033[0m\e]8;;\a"
+        echo -e "\e]8;;http://localhost:4200\a\033[1mCrate-DB\033[0m\e]8;;\a"
 		;;
 	"stop")
 		export $(cat .env | grep "#" -v)
@@ -232,12 +236,15 @@ case "${command}" in
 		waitForOrion
 		displayServices
 		echo -e "Done! Now the contex broker should be active!"
+        echo -e "Click here to access the Dashboards:"
+        echo -e "\e]8;;http://localhost:3003\a\033[1mGrafana\033[0m\e]8;;\a"
+        echo -e "\e]8;;http://localhost:4200\a\033[1mCrate-DB\033[0m\e]8;;\a"
         ;;
 	"create")
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
 		docker pull curlimages/curl
-		${dockerCmd} -f docker-compose.yml pull
+        ${dockerCmd} -f docker-compose/common.yml -f docker-compose/mongo-setup.yml -f docker-compose/fakegenerator.yml pull
 		;;
 	*)
 		echo "Command not Found."

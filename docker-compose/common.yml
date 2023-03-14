@@ -171,7 +171,7 @@ services:
   grafana:
     labels:
       org.fiware: 'SmartWorld'
-    image: grafana/grafana:6.1.6
+    image: grafana/grafana:9.4.2 # grafana/grafana:6.1.6
     container_name: grafana
     restart: always
     depends_on:

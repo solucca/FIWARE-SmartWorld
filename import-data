@@ -1,8 +1,4 @@
 #!/bin/bash
-#
-#  curl commands to reload the data from the previous tutorial
-#
-#
 
 set -e
 
@@ -321,7 +317,7 @@ curl --location --request POST 'http://iot-agent:4041/iot/devices' \
         {
             "device_id": "electricVehicleChargingStation001",
             "entity_name": "urn:ngsi-ld:Device:electricVehicleChargingStation001",
-            "entity_type": "Device",
+            "entity_type": "EVChargingStation",
             "protocol":"PDI-IoTA-JSON",
             "transport":"MQTT",
             "timezone": "Europe/Berlin",
@@ -382,7 +378,7 @@ curl --location --request POST 'http://iot-agent:4041/iot/devices' \
         {
             "device_id": "electricVehicleChargingStation002",
             "entity_name": "urn:ngsi-ld:Device:electricVehicleChargingStation002",
-            "entity_type": "Device",
+            "entity_type": "EVChargingStation",
             "protocol":"PDI-IoTA-JSON",
             "transport":"MQTT",
             "timezone": "Europe/Berlin",
@@ -961,7 +957,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
 --data-raw '{
   "description": "Notify me if distanceUltrasonic of ElectricVehicleChargingStation has changed",
   "type": "Subscription",
-  "entities": [{"type": "Device"}],
+  "entities": [{"type": "EVChargingStation"}],
   "watchedAttributes": ["distanceUltrasonic"],
   "notification": {
     "attributes": ["distanceUltrasonic", "status", "levelOfCharging", "remainingTimeForFullCharge"],
@@ -1049,7 +1045,11 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
 --data-raw '{
   "description": "Notify me of all weight changes",
   "type": "Subscription",
-  "entities": [{"type": "Device"}],
+  "entities": [ {
+    "type": "Device",
+    "id": "urn:ngsi-ld:Device:weight001"
+    }
+    ],
   "watchedAttributes": ["weight"],
   "notification": {
     "attributes": ["weight", "weightClass", "price"],
