@@ -176,7 +176,16 @@ mongoDump () {
 command="$1"
 case "${command}" in
 	"help")
-        echo "usage: services [create|setup|start|simulate|stop]"
+        echo -e "usage:     services [create|setup|start|simulate|stop|delete]\n"
+        echo -e "create:    pulls the docker images"
+        echo -e "setup:     downloads context data and saves it to be used later"
+        echo -e "           whitout internet, and starts the context broker"
+        echo -e "start:     starts the context broker without the need of internet"
+        echo -e "simulate:  starts the context broker along with the simulator,"
+        echo -e "           needs internet to work"
+        echo -e "stop:      stops all the docker containers"
+        echo -e "delete:    deletes all volumes, resets the context broker to its"
+        echo -e "           initial state, without any data and configuration"
         ;;
     "setup")
 		export $(cat .env | grep "#" -v)
@@ -246,6 +255,15 @@ case "${command}" in
 		docker pull curlimages/curl
         ${dockerCmd} -f docker-compose/common.yml -f docker-compose/mongo-setup.yml -f docker-compose/fakegenerator.yml pull
 		;;
+    "delete")
+        export $(cat .env | grep "#" -v)
+		stoppingContainers
+        VOLUMES=$(docker volume ls -qf dangling=true) 
+        if [[ -n $VOLUMES ]]; then 
+        	echo "Removing old volumes"
+        	docker volume rm $VOLUMES || true
+        fi
+        ;;
 	*)
 		echo "Command not Found."
 		echo "usage: services [create|setup|start|simulate|stop]"

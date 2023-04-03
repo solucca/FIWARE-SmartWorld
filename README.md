@@ -22,62 +22,30 @@ For the general setup of the digital twin of the SmartWorld by FIWARE (lego-demo
 
 ## Start up the context broker
 
-1. Install docker and docker-compose
-2. Start the context broker setup with stable internet connection:
-```
-./services start
-```
-3. Stop the context broker:
-```
-./services stop
-```
+To run the context broker you need to have docker compose version 2 installed.
+
+The commands to control the system are:
+
+- ```./services create``` : pulls the docker images
+- ```./services setup``` : downloads context data and saves it to be used later whitout internet, and starts the context broker
+- ```./services start``` : starts the context broker without the need of internet
+- ```./services simulate``` : starts the context broker along with the simulator (needs internet)
+- ```./services stop``` : stops all the docker containers
+- ```./services delete``` : deletes all volumes, resets the context broker to its initial state, without any data and configuration
 
 ---
 
-## Start up the context broker on fair without internet
+## Grafana Setup
+Here is a description on how to correctly setup grafana and import all the dashboards into it:
 
-Start the context broker setup without stable internet connection (recommended on fair): #TODO
-```
-./services orion+mongoRestore
-```
+Open Grafana in a browser with ```http://localhost:3003/```.
 
-When you do it the first time you have to once execute the following steps:
-1. Start the context broker **with** an active internet connection:
-```
-./services orion
-```
-2. When everything is up and running do a dump of the mongo database:
-```
-./services mongoDump
-```
-3. Now you can start the context broker without an active internet connection:
-```
-./services orion+mongoRestore
-```
-
----
-
-Have a look at ```mongoRestore/mongoRestore.md``` for more information.
-
-## Postman Collection
-All the relevant curl-commands to interact with the context broker and the IoT-Agent can be found in the postman-script ```Digital Twin of SmartWorld by FIWARE.postman_collection.json```. Just import it into Postman and start the interaction.
-
----
-
-## Import dashboards in Grafana
-Here is a description on how to correctly setup grafana and import all the dashboards into it.
-
-1. First of all you need to create a persitent volume in docker (if not already done):
-```
-docker volume create grafana-db
-```
-2. Open Grafana in a browser with ```http://localhost:3003/```.
-3. Configure the data source: Go to ```Configuration``` -> ```Data Sources``` -> ```Add Data Source```. Select a ```PostgreSQL``` data source. Fill in the following:
+Configure the data source: Go to ```Configuration``` -> ```Data Sources``` -> ```Add Data Source```. Select a ```PostgreSQL``` data source. Fill in the following:
 
 |             |Content              |
 |-------------|---------------------|
 |Name:        |```CrateDB```           |
-|Host:        |```crate-db:5432``` |
+|Host:        |```crate-db``` |
 |Database:    |```doc```    |
 |User:        |```crate```    |
 |Password:    |``` ```              |
