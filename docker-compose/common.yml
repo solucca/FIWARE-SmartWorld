@@ -17,7 +17,7 @@ services:
       - "${ORION_LD_PORT}"
     ports:
       - "${ORION_LD_PORT}:${ORION_LD_PORT}" # localhost:1026
-    command: -dbhost mongo-db -logLevel DEBUG -forwarding
+    command: -dbhost mongo-db -logLevel DEBUG -forwarding -corsOrigin __ALL
     healthcheck:
       test: curl --fail -s http://orion:${ORION_LD_PORT}/version || exit 1
       interval: 5s
@@ -182,6 +182,22 @@ services:
     #  - GF_INSTALL_PLUGINS=https://github.com/orchestracities/grafana-map-plugin/archive/master.zip;grafana-map-plugin,grafana-clock-panel,grafana-worldmap-panel
     volumes:
       - grafana:/var/lib/grafana
+
+  proxy:
+    labels:
+      org.fiware: 'SmartWorld'
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    hostname: proxy
+    ports:
+     - "8080:8080"
+    container_name: smartworld-proxy
+    depends_on:
+     - orion
+    networks:
+      - default
+
 
 volumes:
   crate-db: ~
