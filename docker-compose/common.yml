@@ -197,6 +197,7 @@ services:
      - orion
     networks:
       - default
+    restart: always
 
 
 volumes:
