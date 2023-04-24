@@ -15,12 +15,17 @@ const server = http.createServer((req, res) => {
       'Access-Control-Allow-Methods': 'GET',
       'Access-Control-Allow-Origin': '*',
       'fiware-service': 'openiot',
-      'fiware-servicepath': '/'
+      'fiware-servicepath': '/',
+      'link': '<http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json'
     }
   };
 
   const proxy = http.request(options, (proxyRes) => {
-    res.writeHead(proxyRes.statusCode, proxyRes.headers);
+    var headers = proxyRes.headers;
+    headers['access-control-allow-headers'] = "*";
+    headers['access-control-allow-origin'] = "*";
+    headers['access-control-allow-methods'] = "GET";
+    res.writeHead(proxyRes.statusCode, headers);
     proxyRes.pipe(res, { end: true });
   });
   
