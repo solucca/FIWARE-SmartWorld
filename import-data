@@ -915,6 +915,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "ParkingSpot"}],
   "watchedAttributes": ["status"],
+  "throttling": 10,
   "notification": {
     "attributes": ["status"],
     "format": "normalized",
@@ -937,6 +938,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "OffStreetParking"}],
   "watchedAttributes": ["availableSpotNumber"],
+  "throttling": 10,
   "notification": {
     "attributes": ["availableSpotNumber", "occupiedSpotNumber", "totalSpotNumber"],
     "format": "normalized",
@@ -959,6 +961,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "EVChargingStation"}],
   "watchedAttributes": ["distanceUltrasonic"],
+  "throttling": 10,
   "notification": {
     "attributes": ["distanceUltrasonic", "status", "levelOfCharging", "remainingTimeForFullCharge"],
     "format": "normalized",
@@ -981,6 +984,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "GreenEnergyGenerator"}],
   "watchedAttributes": ["maxEolicPowerGenerated"],
+  "throttling": 10,
   "notification": {
     "attributes": ["maxEolicPowerGenerated"],
     "format": "normalized",
@@ -1003,6 +1007,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "EnergyConsumer"}],
   "watchedAttributes": ["p"],
+  "throttling": 10,
   "notification": {
     "attributes": ["p"],
     "format": "normalized",
@@ -1025,6 +1030,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "WeatherObserved"}],
   "watchedAttributes": ["temperature"],
+  "throttling": 10,
   "notification": {
     "attributes": ["temperature", "relativeHumidity", "feelLikesTemperature"],
     "format": "normalized",
@@ -1045,6 +1051,7 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
 --data-raw '{
   "description": "Notify me of all weight changes",
   "type": "Subscription",
+  "throttling": 10,
   "entities": [ {
     "type": "Device",
     "id": "urn:ngsi-ld:Device:weight001"
