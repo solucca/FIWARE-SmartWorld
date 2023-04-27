@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     method: req.method,
     headers: {
       'Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Headers': '*',
       'Access-Control-Allow-Methods': 'GET, PATCH',
       'Access-Control-Allow-Origin': '*',
       'fiware-service': 'openiot',
@@ -21,17 +21,24 @@ const server = http.createServer((req, res) => {
   };
 
   if (req.method === 'PATCH') {
+
     const jsonData = JSON.stringify({ "type": "Property",  "value": "" } );
     options.headers['Content-Length'] = jsonData.length;
     options.headers['Content-Type'] = "application/json";
+    console.log("Got:");
+    console.log(JSON.stringify(options.headers));
+    
     const proxyReq = http.request(options, (proxyRes) => {
 
         var headers = proxyRes.headers;
-        headers['access-control-allow-headers'] = "*";
-        headers['access-control-allow-origin'] = "*";
-        headers['access-control-allow-methods'] = "GET, PATCH";
+        headers['Access-Control-Allow-Headers'] = "*";
+        headers['Access-Control-Allow-Origin'] = "*";
+        headers['Access-Control-Allow-Methods'] = "GET, PATCH";
         res.writeHead(proxyRes.statusCode, headers);
-        
+
+        console.log("Sent:");
+        console.log(JSON.stringify(headers));
+
         proxyRes.pipe(res);
     });
     proxyReq.write(jsonData);
@@ -40,9 +47,9 @@ const server = http.createServer((req, res) => {
     const proxy = http.request(options, (proxyRes) => {
 
         var headers = proxyRes.headers;
-        headers['access-control-allow-headers'] = "*";
-        headers['access-control-allow-origin'] = "*";
-        headers['access-control-allow-methods'] = "GET, PATCH";
+        headers['Access-Control-Allow-Headers'] = "*";
+        headers['Access-Control-Allow-Origin'] = "*";
+        headers['Access-Control-Allow-Methods'] = "GET, PATCH";
         res.writeHead(proxyRes.statusCode, headers);
 
         proxyRes.pipe(res, { end: true });
