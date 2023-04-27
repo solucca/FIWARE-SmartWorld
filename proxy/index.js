@@ -5,7 +5,7 @@ const port = process.env.PORT || 8080;
 const server = http.createServer((req, res) => {
   const reqUrl = url.parse(req.url);
   var options = {
-    hostname: '192.168.1.100',
+    hostname: 'orion',
     port: 1026, // ORION Port
     path: reqUrl.path,
     method: req.method,
