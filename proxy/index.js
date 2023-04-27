@@ -25,6 +25,13 @@ const server = http.createServer((req, res) => {
     options.headers['Content-Length'] = jsonData.length;
     options.headers['Content-Type'] = "application/json";
     const proxyReq = http.request(options, (proxyRes) => {
+
+        var headers = proxyRes.headers;
+        headers['access-control-allow-headers'] = "*";
+        headers['access-control-allow-origin'] = "*";
+        headers['access-control-allow-methods'] = "GET, PATCH";
+        res.writeHead(proxyRes.statusCode, headers);
+        
         proxyRes.pipe(res);
     });
     proxyReq.write(jsonData);
