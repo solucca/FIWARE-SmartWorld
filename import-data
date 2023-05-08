@@ -915,13 +915,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "ParkingSpot"}],
   "watchedAttributes": ["status"],
-  "throttling": 10,
   "notification": {
     "attributes": ["status"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -938,13 +943,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "OffStreetParking"}],
   "watchedAttributes": ["availableSpotNumber"],
-  "throttling": 10,
   "notification": {
     "attributes": ["availableSpotNumber", "occupiedSpotNumber", "totalSpotNumber"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -961,13 +971,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "EVChargingStation"}],
   "watchedAttributes": ["distanceUltrasonic"],
-  "throttling": 10,
   "notification": {
     "attributes": ["distanceUltrasonic", "status", "levelOfCharging", "remainingTimeForFullCharge"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -984,13 +999,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "GreenEnergyGenerator"}],
   "watchedAttributes": ["maxEolicPowerGenerated"],
-  "throttling": 10,
   "notification": {
     "attributes": ["maxEolicPowerGenerated"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -1007,13 +1027,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "EnergyConsumer"}],
   "watchedAttributes": ["p"],
-  "throttling": 10,
   "notification": {
     "attributes": ["p"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -1030,13 +1055,18 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "WeatherObserved"}],
   "watchedAttributes": ["temperature"],
-  "throttling": 10,
   "notification": {
     "attributes": ["temperature", "relativeHumidity", "feelLikesTemperature"],
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
@@ -1051,7 +1081,6 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
 --data-raw '{
   "description": "Notify me of all weight changes",
   "type": "Subscription",
-  "throttling": 10,
   "entities": [ {
     "type": "Device",
     "id": "urn:ngsi-ld:Device:weight001"
@@ -1063,7 +1092,13 @@ curl --location --request POST 'http://orion:1026/ngsi-ld/v1/subscriptions/' \
     "format": "normalized",
     "endpoint": {
       "uri": "http://quantumleap:8668/v2/notify",
-      "accept": "application/json"
+      "accept": "application/json",
+      "receiverInfo" : [
+        { 
+          "key":"fiware-service",
+          "value":"openiot"
+        }
+       ]
     }
   }
 }'
