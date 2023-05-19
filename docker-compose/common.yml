@@ -199,6 +199,21 @@ services:
       - default
     restart: always
 
+  frontend:
+    labels:
+      org.fiware: 'SmartWorld'
+    build:
+      context: ./FIWARE-SmartWorldFrontend
+      dockerfile: Dockerfile
+    hostname: frontend
+    ports:
+     - "8000:8000"
+    container_name: smartworld-frontend
+    depends_on:
+     - orion
+    networks:
+      - default
+    restart: always
 
 volumes:
   crate-db: ~

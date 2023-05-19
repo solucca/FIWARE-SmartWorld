@@ -1,0 +1,3 @@
+[submodule "FIWARE-SmartWorldFrontend"]
+	path = FIWARE-SmartWorldFrontend
+	url = https://github.com/solucca/FIWARE-SmartWorldFrontend
