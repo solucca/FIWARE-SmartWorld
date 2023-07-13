@@ -884,6 +884,50 @@ curl --location --request POST 'http://iot-agent:4041/iot/devices' \
     ]
 }'
 
+sleep 0.5
+
+#Register Wind_Energy
+curl --location --request POST 'http://iot-agent:4041/iot/devices' \
+--header 'fiware-service: openiot' \
+--header 'fiware-servicepath: /' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "devices": [
+        {
+            "device_id": "train001",
+            "entity_name": "urn:ngsi-ld:Device:train001",
+            "entity_type": "Device",
+            "protocol":"PDI-IoTA-JSON",
+            "transport":"MQTT",
+            "timezone": "Europe/Berlin",
+            "attributes": [
+                {
+                    "object_id": "position",
+                    "name": "position",
+                    "type": "Number"
+                }
+            ],
+            "commands":[
+                {
+                    "name":"on",
+                    "type":"command"
+                },
+                {
+                    "name":"off",
+                    "type":"command"
+                }
+                ],
+            "static_attributes": [
+                {
+                    "name": "controlledAsset",
+                    "type": "Relationship",
+                    "value": "urn:ngsi-ld:Building:Basis"
+                }
+            ]
+        }
+    ]
+}'
+
 sleep 5
 
 #Register Services
