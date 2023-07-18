@@ -886,7 +886,7 @@ curl --location --request POST 'http://iot-agent:4041/iot/devices' \
 
 sleep 0.5
 
-#Register Wind_Energy
+#Register Train
 curl --location --request POST 'http://iot-agent:4041/iot/devices' \
 --header 'fiware-service: openiot' \
 --header 'fiware-servicepath: /' \
@@ -905,15 +905,16 @@ curl --location --request POST 'http://iot-agent:4041/iot/devices' \
                     "object_id": "position",
                     "name": "position",
                     "type": "Number"
+                },
+                {
+                    "object_id": "speed",
+                    "name": "speed",
+                    "type": "Number"
                 }
             ],
             "commands":[
                 {
-                    "name":"on",
-                    "type":"command"
-                },
-                {
-                    "name":"off",
+                    "name":"setspeed",
                     "type":"command"
                 }
                 ],
