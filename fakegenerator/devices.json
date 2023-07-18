@@ -81,8 +81,8 @@
             {
                 "id": "relativeHumidity",
                 "type": "Number",
-                "range":[0,40],
-                "bound":[0,100]
+                "range":[0.0,0.4],
+                "bound":[0.0,1.0]
             },
             {
                 "id": "feelLikesTemperature",
@@ -104,8 +104,8 @@
             {
                 "id": "relativeHumidity",
                 "type": "Number",
-                "range":[0, 40],
-                "bound":[0, 100]
+                "range":[0.0,0.4],
+                "bound":[0.0,1.0]
             },
             {
                 "id": "feelLikesTemperature",
