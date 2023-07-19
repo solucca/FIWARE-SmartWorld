@@ -103,11 +103,10 @@ class Simulator:
                     self.boundary = [float(i) for i in boundary]
                 
                 if boundary == None: boundary = start
-                i = 0.1
+                i = 0.10
+                # variation is 10% of the limit values
                 self.variation = (boundary[1]-boundary[0])*i
-                while self.variation < 1:
-                    i += 0.05
-                    self.variation = (boundary[1]-boundary[0])*i
+                
 
             elif type(start[0]) == int:
                 self.current = randint(start[0], start[1])
