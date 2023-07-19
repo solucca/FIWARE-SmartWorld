@@ -1,5 +1,7 @@
 # Tutorial to make context broker independent of internet connection
 
+### This was already implemented in the SmartWorld Code, but this information is still here for historical reasons
+
 Main Idea: Once you have a internet connection you setup your context broker as you like. When everything is up and running, all the necessary files for the context broker are stored in the mongo-database. So you do a dump of the mongo-database. When you want to run the context broker without an internet connection you simply restore the mongo-database while you start it.
 
 ## Dump the mongo-database
